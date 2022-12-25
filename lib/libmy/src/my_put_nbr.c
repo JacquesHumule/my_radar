@@ -5,6 +5,8 @@
 ** function that displays the number given as a parameter
 */
 
+#include <stdint.h>
+#include <glob.h>
 #include "my.h"
 
 static int my_put_nbr_r(int nbr)
@@ -29,4 +31,18 @@ int my_put_nbr(int nbr)
     }
     my_put_nbr_r(nbr);
     return 0;
+}
+
+size_t my_nbrlen(intmax_t nbr, int base)
+{
+    int len = 0;
+    if (nbr < 0) {
+        len++;
+        nbr = nbr * -1;
+    }
+    while (nbr > 0) {
+        nbr = nbr / base;
+        len++;
+    }
+    return len;
 }

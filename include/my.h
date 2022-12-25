@@ -8,6 +8,11 @@
 #ifndef MY_LIB
     #define MY_LIB
 
+    #include <stdint.h>
+    #include <glob.h>
+
+    #define EPITECH_SUCCESS 0
+    #define EPITECH_FAILURE 84
     void my_putchar(char c);
     char const *my_strstr(char const *str, char const *to_find);
     int my_isneg(int nb);
@@ -33,11 +38,13 @@
     int my_find_prime_sup(int nb);
     int my_showstr(char const *str);
     char *my_strcpy(char *dest, char const *src);
+    char *my_strdup(char const *src);
     int my_showmem(char const *str, int size);
     char *my_strncpy(char *dest, char const *src, int n);
     char *my_strcat(char *dest, char const *src);
     char *my_revstr(char *str);
     char *my_strncat(char *dest, char const *src, int nb);
     int my_printf(char *fmt, ...);
+    size_t my_nbrlen(intmax_t nbr, int base);
 
 #endif

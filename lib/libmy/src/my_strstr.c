@@ -16,16 +16,15 @@ static int my_checkocc(char *hs, char const *nd, int i)
                     return 1;
                 }
     }
+    return 0;
 }
 
-char *my_strstr(char *haystack, char const *needle)
+char const *my_strstr(char const *haystack, char const *needle)
 {
     int len = my_strlen(haystack);
     int lan = my_strlen(needle);
     if (lan == 0)
         return haystack;
-    int nb;
-    int pos;
     for (int i = 0; i <= len - lan; i++) {
         if (my_checkocc(haystack, needle, i) == 1)
             return &haystack[i];

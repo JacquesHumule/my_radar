@@ -5,6 +5,7 @@
 ** main.c
 */
 
+#include <stdio.h>
 #include "my_radar.h"
 
 int main (int ac, char **av)
