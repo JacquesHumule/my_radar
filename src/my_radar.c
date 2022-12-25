@@ -13,13 +13,7 @@ sfRenderWindow *init(instance_t *instance)
     sfVideoMode mode = {1920, 1080, 32};
     sfContextSettings settings = {0, 0, 8, 0, 0, 0, 0};
     sfRenderWindow *window = sfRenderWindow_createUnicode(mode,
-        (sfUint32 *) L"J̷̩̦͗̄̀͢͠’҉̞̳̐̽̾͢͝ă̶͇̌̕͜į̵̝̖͛̎̒͞ "
-                     "m̵̛̰͑͐̔͢ͅi҈̡͈҇́̿̽s̵̢͇̉͞ d̴̢͇̦̅͊̕e҈̨̤̤҇͊ş̵̣̘̀̕ "
-                     "ç̴̮̬̤̃̚͠ą̴͖̱̮̅͞r̸̡̦̗̐͛̒͞a̴̡͕̟҇̈́̚c҉̧̣͔͕̂͡t"
-                     "̶̢̝̱͈̾̈́̒͠è҉̧͓̗̣̄͌̀͞r҈̧̦͌̂͋͞e҉̡͖̟͌͑̚͞ś̴̨͕͡ "
-                     "ș̶̢̯҇̈́p̵͕͉͙̃̑͌̕͜é̵̡̬̯͖̆̏͞c̷̡̛͉̎̚į̸̛̱͑̚a̶̧͙͙̩̋͛̕u"
-                     "҈̨̜͙̌͝x̴̡̠͋̏͝ į̸͉̽̏̋͡c҈̫̥̏͂͜͞ͅī̸̢͖͙̍̕", sfClose,
-                     &settings);
+        (sfUint32 *) L"my_radar ∞", sfClose, &settings);
     sfRenderWindow_setFramerateLimit(window, 60);
     sfRenderWindow_setPosition(window, (sfVector2i) {0, 0});
     return window;
@@ -28,7 +22,7 @@ sfRenderWindow *init(instance_t *instance)
 void event_manager(sfRenderWindow *window)
 {
     sfEvent event;
-    while(sfRenderWindow_pollEvent(window, &event)) {
+    while (sfRenderWindow_pollEvent(window, &event)) {
         if (event.type == sfEvtClosed) {
             sfRenderWindow_close(window);
         }
@@ -51,7 +45,8 @@ int my_radar(char *path)
     create_planes(instance);
     create_backgound(instance);
     instance->window = init(instance);
-    while (sfRenderWindow_isOpen(instance->window)) {
+    while (sfRenderWindow_isOpen(instance->window)
+        && instance->planes->last_stopped) {
         event_manager(instance->window);
         update_planes(instance);
         sfRenderWindow_clear(instance->window, sfBlack);

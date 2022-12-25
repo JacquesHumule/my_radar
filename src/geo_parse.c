@@ -5,9 +5,7 @@
 ** geo_parse.c
 */
 
-
-#define IS_NUM(x) (x >= '0' && x <= '9')
-
+#include "geo_parse.h"
 
 float lat_parse(char const * str)
 {

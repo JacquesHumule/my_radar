@@ -17,5 +17,7 @@ int display_planes(instance_t *instance);
 int update_planes(instance_t *instance);
 float long_parse(char const * str);
 float lat_parse(char const * str);
+atc_array_t *atc_array_create(linked_list_t *list_atc);
+plane_array_t *plane_array_create(linked_list_t *list_plane);
 
 #endif //MY_RADAR_

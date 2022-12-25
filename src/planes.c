@@ -6,7 +6,7 @@
 */
 
 #include <math.h>
-#include "poubelle/my_radar.h"
+#include "my_radar.h"
 #include "objects.h"
 
 int create_rect(plane_t *plane)
@@ -46,36 +46,44 @@ int create_planes(instance_t *instance)
 
 int display_planes(instance_t *instance)
 {
-    for (int i = 0; i < instance->planes->size; i++) {
+    for (int i = 0; i < instance->planes->last_stopped; i++) {
         plane_t *plane = &instance->planes->planes[i];
         float time = sfTime_asSeconds(sfClock_getElapsedTime(plane->clock));
         if (plane->takeoff_time <= time && plane->landing_time > time) {
-            sfRenderWindow_drawRectangleShape(instance->window, plane->hitbox, NULL);
+            sfRenderWindow_drawRectangleShape(instance->window,
+                plane->hitbox, NULL);
             sfRenderWindow_drawSprite(instance->window, plane->sprite, NULL);
         }
     }
     return 0;
 }
 
-void is_flying(plane_t *plane)
+int is_flying(plane_t *plane)
 {
     if (plane->crashed || plane->landed)
-        return;
+        return 0;
     float time = sfTime_asSeconds(sfClock_getElapsedTime(plane->clock));
     if (plane->landing_time < time) {
         plane->landed = true;
-        return;
+        return 1;
     }
     if (plane->takeoff_time <= time || !plane->flying)
         plane->flying = true;
+    return 0;
 }
 
 int update_planes(instance_t *instance)
 {
     sfVector2u size = sfImage_getSize(instance->i_map);
-    for (int i = 0; i < instance->planes->size; i++) {
+    for (int i = 0; i < instance->planes->last_stopped; i++) {
         plane_t *plane = &instance->planes->planes[i];
-        is_flying(plane);
+        if (is_flying(plane)) {
+            size_t j = instance->planes->last_stopped - 1;
+            plane_t tmp = instance->planes->planes[j];
+            instance->planes->planes[j] = *plane;
+            instance->planes->planes[i] = tmp;
+            instance->planes->last_stopped--;
+        }
         float time = sfTime_asSeconds(sfClock_getElapsedTime(plane->clock)) -
             plane->takeoff_time;
         if (plane->flying) {
