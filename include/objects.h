@@ -15,7 +15,8 @@ typedef struct plane_s {
     sfSprite *sprite;
     sfTexture *texture;
     sfClock *clock;
-    sfRectangleShape *hitbox;
+    sfRectangleShape *border;
+    sfFloatRect bb;
     sfVector2f origin;
     sfVector2f pos;
     sfVector2f dest;
@@ -37,11 +38,11 @@ typedef struct plane_array_s {
 } plane_array_t;
 
 typedef struct atc_s {
-    sfVector2f pos;
     sfSprite *sprite;
     sfTexture *texture;
-    sfClock *clock;
-    sfVector2f size;
+    sfCircleShape *border;
+    sfVector2f pos;
+    float radius;
 } atc_t;
 
 typedef struct atc_array_s {
@@ -49,13 +50,31 @@ typedef struct atc_array_s {
     int size;
 } atc_array_t;
 
+typedef struct quadtree_s {
+    plane_t **planes;
+    struct quadtree_s *childs[4];
+    sfFloatRect bb;
+    sfRectangleShape *display;
+    size_t nb_planes;
+} quadtree_t;
+
+enum child {
+    TL,
+    TR,
+    BL,
+    BR
+};
+
 typedef struct instance_s {
     sfRenderWindow *window;
-    plane_array_t *planes;
-    atc_array_t *atc;
+    plane_array_t *a_planes;
+    atc_array_t *a_atc;
     sfImage *i_plane;
     sfImage *i_atc;
     sfImage *i_map;
+    sfTexture *t_map;
     sfSprite *s_map;
+    quadtree_t *quadtree;
 } instance_t;
+
 #endif //OBJECTS_

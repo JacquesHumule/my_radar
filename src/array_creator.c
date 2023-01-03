@@ -30,7 +30,7 @@ static int set_plane(float array[6], plane_t *plane)
     return EPITECH_SUCCESS;
 }
 
-static int get_nb_planes(char const *str, plane_t *plane)
+static void get_nb_planes(char const *str, plane_t *plane)
 {
     str += 2;
     float array[6];
@@ -58,10 +58,7 @@ plane_array_t *plane_array_create(linked_list_t *list_plane)
     for (int i = 0; list_plane != NULL; i++) {
         plane_t *p = &plane_array->planes[i];
         get_nb_planes(list_plane->data, p);
-        linked_list_t *tmp = list_plane->next;
-        free(list_plane->data);
-        free(list_plane);
-        list_plane = tmp;
+        LT_NEXT(list_plane);
     }
     return plane_array;
 }
@@ -73,19 +70,14 @@ atc_array_t *atc_array_create(linked_list_t *list_atc)
     atc_array->atc = malloc(sizeof(atc_t) * list_atc->len);
     for (int i = 0; list_atc != NULL; i++) {
         atc_t *a = &atc_array->atc[i];
-        char *str = list_atc->data + 1;
-        int nb = my_getnbr(str);
-        a->pos.x = (float) nb;
-        str += my_nbrlen(nb, 10) + 1;
-        nb = my_getnbr(str);
-        a->pos.y = (float) nb;
-        str += my_nbrlen(nb, 10) + 1;
-        nb = my_getnbr(str);
-        a->size.x = a->size.y = nb;
-        linked_list_t *tmp = list_atc->next;
-        free(list_atc->data);
-        free(list_atc);
-        list_atc = tmp;
+        char *str = list_atc->data + 2;
+        a->pos.y = lat_parse(str);
+        str++;
+        for (; *str != '-' && *str != '+'; str++);
+        a->pos.x = long_parse(str);
+        str = my_strstr(str, " ");
+        a->radius = (float) my_getnbr(str);
+        LT_NEXT(list_atc);
     }
     return atc_array;
 }

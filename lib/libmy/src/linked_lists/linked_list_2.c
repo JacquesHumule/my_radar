@@ -59,7 +59,7 @@ int ltswap(linked_list_t **head, int a, int b)
 int ltfree(linked_list_t *list, void func(void *))
 {
     if (list != NULL) {
-        if (func != NULL)
+        if (func != NULL && list->data != NULL)
             func(list->data);
         ltfree(list->next, func);
         free(list);
