@@ -7,7 +7,7 @@
 
 
  Planes lines must start with P and contain the x, y start and end, its size and speed
- Like this: P <POS1> <POS2> SPEED TAKEOFF_TIME
+ Like this: P POS1 POS2 SPEED TAKEOFF_TIME
  with X1 start latitude and longitude of the plane
       X2 end latitude and longitude of the plane
       SPEED speed of the plane
@@ -15,6 +15,8 @@
  e.g. P +4852+00220 +4075-074 3900 10 (Paris to New York)
  Latitude and longitude are in DMS iso 6709 format without decimal part (±DD[MM[SS]]±DDD[MM[SS]]/)
  Regex : P [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ 3900 1
+
+ Hope you enjoy generating a bunch of this xD
 
  Speed is in radians per second multiplied by 1000 (average speed of a plane is 39 rad/s÷1000 or 900km/h)
  Time is in second
