@@ -16,7 +16,8 @@
  Latitude and longitude are in DMS iso 6709 format without decimal part (±DD[MM[SS]]±DDD[MM[SS]]/)
  Regex : P [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ 3 1
 
- Hope you enjoy generating a bunch of this xD (check in bonus folder ;) )
+ Hope you enjoy generating a bunch of this xD (check in bonus folder ;) for my generator, don’t forget to pay the license : https://paypal.me/theweatherkill)
+ Wrong position will be ignored
 
  Speed is in radians per second multiplied by 1000 (average speed of a plane is 39 rad/s÷1000 or 900km/h)
  Time is in second
@@ -47,3 +48,5 @@ A assets/plane.png
 H assets/tower.png
 B assets/background.png
 F assets/font.ttf
+
+p.s. Don’t pay me it was just a joke
