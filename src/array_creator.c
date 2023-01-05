@@ -20,9 +20,9 @@ static int set_plane(float array[6], plane_t *plane)
     plane->traveling_distance = sqrtf(powf(plane->dest.x - plane->pos.x, 2) +
         powf(plane->dest.y - plane->pos.y, 2));
     plane->angle = -atan2f(array[2] - array[0], array[3] - array[1]);
-    plane->speed.x = cosf(plane->angle) * array[4];
-    plane->speed.y = sinf(plane->angle) * array[4];
-    plane->norm_speed = array[4];
+    plane->speed.x = cosf(plane->angle) * array[4] / 1000;
+    plane->speed.y = sinf(plane->angle) * array[4] / 1000;
+    plane->norm_speed = array[4] / 1000;
     plane->takeoff_time = array[5];
     plane->landing_time = plane->traveling_distance / plane->norm_speed +
         plane->takeoff_time;

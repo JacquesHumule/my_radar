@@ -1,0 +1,47 @@
+                           _____
+  ____    __ __    __   __|__   |__  ____    _____   ____    _____
+ |    \  /  |\ \  / /  |     |     ||    \  |     \ |    \  |     |
+ |     \/   | \ \/ /   |     \     ||     \ |      \|     \ |     \
+ |__/\__/|__| /___/___ |__|\__\  __||__|\__\|______/|__|\__\|__|\__\
+                  |___|   |_____|
+
+
+ Planes lines must start with P and contain the x, y start and end, its size and speed
+ Like this: P <POS1> <POS2> SPEED TAKEOFF_TIME
+ with X1 start latitude and longitude of the plane
+      X2 end latitude and longitude of the plane
+      SPEED speed of the plane
+      TAKEOFF_TIME time when the plane will take off
+ e.g. P +4852+00220 +4075-074 39 10 (Paris to New York)
+ Latitude and longitude are in DMS iso 6709 format without decimal part (±DD[MM[SS]]±DDD[MM[SS]]/)
+ Regex : P [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ [-+](\d{2}|\d{6}|\d{4})[-+](\d{3}|\d{5}|\d{7})\/ 3 1
+
+ Speed is in radians per second multiplied by 1000 (average speed of a plane is 39 rad/s÷1000 or 900km/h)
+ Time is in second
+
+ ***PLANES***
+P +4852+00220 +4075-074 3 1
+P +4075-074 +4852+00220 3 1
+P +00-000 +10-000 3 1
+
+
+Towers lines must start with T and contain the x, y position and its size
+ Like this: T POS SIZE
+ with POS position of the tower
+      SIZE size of the tower
+ e.g. T -33+012 2
+ POS is a geographic position
+ SIZE is counted as pixel
+
+ ***ATC***
+T +485124+0022107 100
+T +4075-074 100
+T +353910+1395022 100
+
+Setting are A for plane image, H for atc image, B for background image, F for timer font face
+
+ ***SETTINGS***
+A assets/plane.png
+H assets/tower.png
+B assets/background.png
+F assets/font.ttf

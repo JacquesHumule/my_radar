@@ -23,7 +23,6 @@ static int create_rect(plane_t *plane)
     sfRectangleShape_setFillColor(plane->border, sfTransparent);
     sfRectangleShape_setOutlineColor(plane->border, sfRed);
     sfRectangleShape_setOutlineThickness(plane->border, 1);
-    sfRectangleShape_setRotation(plane->border, plane->angle * 180 / M_PI);
     return EPITECH_SUCCESS;
 }
 
