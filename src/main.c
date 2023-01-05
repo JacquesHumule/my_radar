@@ -9,6 +9,14 @@
 #include "my.h"
 #include "my_radar.h"
 
+int check_display(char const * const *env)
+{
+    for (int i = 0; env[i] != NULL; i++)
+        if (!my_strncmp(env[i], "DISPLAY=", 8))
+            return 0;
+    return 1;
+}
+
 void help(void)
 {
     my_printf(
@@ -25,8 +33,9 @@ void help(void)
         "\tfile\tfile describing the atc, planes and settings\n");
 }
 
-int main (int ac, char **av)
+int main (int ac, char **av, char const * const * env)
 {
+    if (check_display(env)) return 84;
     if (ac != 2)
         return 84;
     if (my_strcmp(av[1], "-h") == 0) {

@@ -5,12 +5,11 @@ import sys
 
 def random_gps() -> str:
     string = ""
-    nb = random.randint(-90, 90)
-    string += f"{random.randint(-90, 90):+02d}"
+    string += f"{random.randint(-89, 89):+03d}"
     for i in range(2):
         if random.choice([True, False]):
             string += f"{random.randint(0, 59):02d}"
-    string += f"{random.randint(-180, 180):+03d}"
+    string += f"{random.randint(-179, 179):+04d}"
     for i in range(2):
         if random.choice([True, False]):
             string += f"{random.randint(0, 59):02d}"
