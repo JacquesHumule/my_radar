@@ -6,10 +6,17 @@
 */
 
 #include <stdio.h>
+#include <unistd.h>
 #include "my.h"
 #include "linked_list.h"
 #include "objects.h"
 #include "my_radar.h"
+
+int error(void)
+{
+    write(2, "Error\n", 6);
+    return EPITECH_FAILURE;
+}
 
 static void free_opener(char *path[3], linked_list_t *list[2])
 {
@@ -56,13 +63,13 @@ int open_file(char *path, instance_t *instance)
 {
     FILE *config = fopen(path, "r");
     if (config == NULL)
-        return EPITECH_FAILURE;
+        return error();
     linked_list_t *list[2] = {NULL, NULL};
     char *out[4] = {NULL, NULL, NULL, NULL};
     file_loop(config, list, out);
     if (out[0] == NULL || out[1] == NULL || out[2] == NULL || list[0] == NULL
         || list[1] == NULL || out[3] == NULL)
-        return EPITECH_FAILURE;
+        return error();
     instance->t_plane = sfTexture_createFromFile(out[0], NULL);
     instance->t_map = sfTexture_createFromFile(out[1], NULL);
     instance->t_atc = sfTexture_createFromFile(out[2], NULL);
@@ -72,6 +79,6 @@ int open_file(char *path, instance_t *instance)
     fclose(config);
     free_opener(out, list);
     if (instance->a_planes == NULL || instance->a_atc == NULL)
-        return EPITECH_FAILURE;
+        return error();
     return EPITECH_SUCCESS;
 }

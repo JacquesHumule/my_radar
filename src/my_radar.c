@@ -51,14 +51,14 @@ int event_manager(instance_t *instance)
     while (sfRenderWindow_pollEvent(window, &event)) {
         if (event.type == sfEvtClosed || (event.type == sfEvtKeyPressed &&
             sfKeyboard_isKeyPressed(sfKeyQ))) sfRenderWindow_close(window);
-        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyA))
+        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyS)) {
             instance->states.show_planes = !instance->states.show_planes;
-        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyZ))
-            instance->states.show_pbb = !instance->states.show_pbb;
-        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyE))
             instance->states.show_atc = !instance->states.show_atc;
-        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyR))
+        }
+        if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyL)) {
+            instance->states.show_pbb = !instance->states.show_pbb;
             instance->states.show_atc_area = !instance->states.show_atc_area;
+        }
         if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyT))
             instance->states.show_quatree = !instance->states.show_quatree;
         if (event.type == sfEvtKeyPressed && sfKeyboard_isKeyPressed(sfKeyY))
