@@ -10,7 +10,7 @@
 int swap_planes(instance_t *instance, size_t i)
 {
     if (instance == NULL || i >= instance->a_planes->last_stopped)
-        return EPITECH_FAILLURE;
+        return EPITECH_FAILURE;
     size_t j = instance->a_planes->last_stopped - 1;
     plane_t tmp = instance->a_planes->planes[j];
     instance->a_planes->planes[j] = instance->a_planes->planes[i];
@@ -25,8 +25,6 @@ static void free_plane(plane_t *plane)
         return;
     if (plane->sprite != NULL)
         sfSprite_destroy(plane->sprite);
-    if (plane->texture != NULL)
-        sfTexture_destroy(plane->texture);
     if (plane->clock != NULL)
         sfClock_destroy(plane->clock);
     if (plane->border != NULL)
@@ -38,7 +36,7 @@ void free_plane_array(plane_array_t *array)
     if (array == NULL)
         return;
     if (array->planes != NULL) {
-        for (int i = 0; i < array->size; i++)
+        for (unsigned i = 0; i < array->size; i++)
             free_plane(&array->planes[i]);
         free(array->planes);
     }
@@ -51,8 +49,6 @@ static void free_atc(atc_t *atc)
         return;
     if (atc->sprite != NULL)
         sfSprite_destroy(atc->sprite);
-    if (atc->texture != NULL)
-        sfTexture_destroy(atc->texture);
     if (atc->border != NULL)
         sfCircleShape_destroy(atc->border);
 }

@@ -11,9 +11,6 @@
     #include <stdint.h>
     #include <glob.h>
 
-    #define EPITECH_SUCCESS (0)
-    #define EPITECH_FAILURE (84)
-
     void my_putchar(char c);
     char const *my_strstr(char const *str, char const *to_find);
     int my_isneg(int nb);

@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2022
+** EPITECH PROJECT, 2023
 ** my_radar
 ** File description:
 ** large_plane_collider_utils.c
@@ -48,4 +48,11 @@ void free_quadtree(quadtree_t *quadtree)
     for (int i = 0; i < 4; i++)
         free_quadtree(quadtree->childs[i]);
     free(quadtree);
+}
+
+bool rect_intersect(sfFloatRect rect1, sfFloatRect rect2)
+{
+    return (rect1.top < rect2.top + rect2.height && rect1.top + rect1.height >
+        rect2.top && rect1.left < rect2.left + rect2.width && rect1.left +
+        rect1.width > rect2.left);
 }

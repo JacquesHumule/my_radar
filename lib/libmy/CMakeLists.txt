@@ -5,6 +5,9 @@ set(CMAKE_C_STANDARD 99)
 
 include_directories(include)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
+
+
 add_library(my
         src/my_compute_power_rec.c
         src/my_compute_square_root.c

@@ -6,6 +6,31 @@
 */
 
 #include "geo_parse.h"
+#include <stdbool.h>
+#include <stdlib.h>
+
+bool check_geo(char const *str)
+{
+    if (str == NULL)return false;
+    int nb_long, nb_lat;
+    if (str[0] != '-' && str[0] != '+') return false;
+    for (nb_lat = 1; str[nb_lat] != '-' && str[nb_lat] != '+'; nb_lat++) {
+        if (str[nb_lat] == '\0')
+            return false;
+        if (IS_NUM(str[nb_lat]) == false)
+            return false;
+    }
+    for (nb_long = nb_lat + 1; str[nb_long] != '-' && str[nb_long] != '+';
+    nb_long++) {
+        if (str[nb_long] == '\0')
+            return false;
+        if (IS_NUM(str[nb_long]) == false)
+            break;
+    }
+    if ((nb_lat - 1) % 2 != 0 || nb_long % 2 != 1)
+        return false;
+    return true;
+}
 
 float lat_parse(char const * str)
 {

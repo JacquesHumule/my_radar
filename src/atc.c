@@ -9,7 +9,7 @@
 
 static int circle_create(atc_t *atc, instance_t *instance)
 {
-    sfVector2u s = sfImage_getSize(instance->i_map);
+    sfVector2u s = sfTexture_getSize(instance->t_map);
     atc->radius = atc->radius * s.x / 360;
     atc->border = sfCircleShape_create();
     sfCircleShape_setPosition(atc->border, atc->pos);
@@ -25,14 +25,12 @@ static int circle_create(atc_t *atc, instance_t *instance)
 
 int atc_create(instance_t *instance)
 {
-    sfVector2u s = sfImage_getSize(instance->i_map);
+    sfVector2u s = sfTexture_getSize(instance->t_map);
     for (int i = 0; i < instance->a_atc->size; i++) {
         atc_t *atc = &instance->a_atc->atc[i];
         atc->sprite = sfSprite_create();
-        atc->texture = sfTexture_createFromImage(instance->i_atc, NULL);
-        sfTexture_setSmooth(atc->texture, sfTrue);
-        sfSprite_setTexture(atc->sprite, atc->texture, sfFalse);
-        sfVector2u size = sfTexture_getSize(atc->texture);
+        sfSprite_setTexture(atc->sprite, instance->t_atc, sfFalse);
+        sfVector2u size = sfTexture_getSize(instance->t_atc);
         sfVector2f origin = {(float) size.x / 2, (float) size.x / 2};
         sfSprite_setOrigin(atc->sprite, origin);
         sfVector2f scale = {20.f / (float) size.x, 20.f / (float) size.y};
@@ -46,11 +44,19 @@ int atc_create(instance_t *instance)
     return 0;
 }
 
-int atc_display(instance_t *instance)
+int atc_display_bb(instance_t *instance)
 {
     for (int i = 0; i < instance->a_atc->size; i++) {
         atc_t atc = instance->a_atc->atc[i];
         sfRenderWindow_drawCircleShape(instance->window, atc.border, NULL);
+    }
+    return 0;
+}
+
+int atc_display(instance_t *instance)
+{
+    for (int i = 0; i < instance->a_atc->size; i++) {
+        atc_t atc = instance->a_atc->atc[i];
         sfRenderWindow_drawSprite(instance->window, atc.sprite, NULL);
     }
     return 0;

@@ -11,7 +11,7 @@ int my_compute_square_root(int n)
     if (n < 0)
         return 0;
     for (int i = 1; i * i <= n; i++) {
-        unsigned int j = i * i;
+        int j = i * i;
         if (j > 2147483647)
             return 0;
         if (j == n)

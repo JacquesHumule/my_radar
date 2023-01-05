@@ -12,12 +12,12 @@
 static int create_rect(plane_t *plane)
 {
     if (plane == NULL)
-        return EPITECH_FAILLURE;
+        return EPITECH_FAILURE;
     sfVector2f size = {20, 20};
     sfVector2f origin = {10, 10};
     plane->border = sfRectangleShape_create();
     if (plane->border == NULL)
-        return EPITECH_FAILLURE;
+        return EPITECH_FAILURE;
     sfRectangleShape_setOrigin(plane->border, origin);
     sfRectangleShape_setSize(plane->border, size);
     sfRectangleShape_setFillColor(plane->border, sfTransparent);
@@ -30,26 +30,22 @@ static int create_rect(plane_t *plane)
 int create_planes(instance_t *instance)
 {
     if (instance == NULL)
-        return EPITECH_FAILLURE;
-    for (int i = 0; i < instance->a_planes->size; i++) {
+        return EPITECH_FAILURE;
+    for (unsigned i = 0; i < instance->a_planes->size; i++) {
         plane_t *plane = &instance->a_planes->planes[i];
         plane->sprite = sfSprite_create();
-        plane->texture = sfTexture_createFromImage(instance->i_plane, NULL);
         plane->clock = sfClock_create();
-        if (plane->sprite == NULL || plane->texture == NULL
-            || plane->clock == NULL) {
-            return EPITECH_FAILLURE;
-        }
-        sfTexture_setSmooth(plane->texture, sfTrue);
-        sfVector2u size = sfTexture_getSize(plane->texture);
+        if (plane->sprite == NULL || plane->clock == NULL)
+            return EPITECH_FAILURE;
+        sfVector2u size = sfTexture_getSize(instance->t_plane);
         sfVector2f origin = {(float) size.x / 2,(float) size.y / 2};
         sfSprite_setOrigin(plane->sprite, origin);
-        sfSprite_setTexture(plane->sprite, plane->texture, sfTrue);
+        sfSprite_setTexture(plane->sprite, instance->t_plane, sfTrue);
         sfVector2f scale = {20.f / (float) size.x, 20.f / (float) size.y};
         sfSprite_setScale(plane->sprite, scale);
         sfSprite_setRotation(plane->sprite, plane->angle / (float) M_PI * 180);
-        if (create_rect(plane) == EPITECH_FAILLURE)
-            return EPITECH_FAILLURE;
+        if (create_rect(plane) == EPITECH_FAILURE)
+            return EPITECH_FAILURE;
         plane->flying = plane->landed = plane->crashed = 0;
     }
     return EPITECH_SUCCESS;
@@ -58,13 +54,11 @@ int create_planes(instance_t *instance)
 int display_planes(instance_t *instance)
 {
     if (instance == NULL)
-        return EPITECH_FAILLURE;
-    for (int i = 0; i < instance->a_planes->last_stopped; i++) {
+        return EPITECH_FAILURE;
+    for (unsigned i = 0; i < instance->a_planes->last_stopped; i++) {
         plane_t *plane = &instance->a_planes->planes[i];
         float time = sfTime_asSeconds(sfClock_getElapsedTime(plane->clock));
         if (plane->takeoff_time <= time && plane->landing_time > time) {
-            sfRenderWindow_drawRectangleShape(instance->window,
-                plane->border, NULL);
             sfRenderWindow_drawSprite(instance->window, plane->sprite, NULL);
         }
     }
@@ -74,7 +68,7 @@ int display_planes(instance_t *instance)
 int is_flying(plane_t *plane)
 {
     if (plane == NULL)
-        return EPITECH_FAILLURE;
+        return EPITECH_FAILURE;
     if (plane->crashed == true || plane->landed == true)
         return false;
     float time = sfTime_asSeconds(sfClock_getElapsedTime(plane->clock));
@@ -89,10 +83,9 @@ int is_flying(plane_t *plane)
 
 int update_planes(instance_t *instance)
 {
-    if (instance == NULL)
-        return EPITECH_FAILLURE;
-    sfVector2u s = sfImage_getSize(instance->i_map);
-    for (int i = 0; i < instance->a_planes->last_stopped; i++) {
+    if (instance == NULL) return EPITECH_FAILURE;
+    sfVector2u s = sfTexture_getSize(instance->t_map);
+    for (unsigned i = 0; i < instance->a_planes->last_stopped; i++) {
         plane_t *p = &instance->a_planes->planes[i];
         if (is_flying(p) == false) {
             swap_planes(instance, i);

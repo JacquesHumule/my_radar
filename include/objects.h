@@ -1,5 +1,5 @@
 /*
-** EPITECH PROJECT, 2022
+** EPITECH PROJECT, 2023
 ** my_radar
 ** File description:
 ** objects.h
@@ -13,7 +13,6 @@
 
 typedef struct plane_s {
     sfSprite *sprite;
-    sfTexture *texture;
     sfClock *clock;
     sfRectangleShape *border;
     sfFloatRect bb;
@@ -22,13 +21,13 @@ typedef struct plane_s {
     sfVector2f dest;
     sfVector2f speed;
     float norm_speed;
-    float traveling_ditance;
+    float traveling_distance;
     float takeoff_time;
     float landing_time;
     float angle;
-    bool landed;
-    bool crashed;
-    bool flying;
+    bool landed : 1;
+    bool crashed : 1;
+    bool flying : 1;
 } plane_t;
 
 typedef struct plane_array_s {
@@ -65,16 +64,28 @@ enum child {
     BR
 };
 
+typedef struct states_s {
+    bool show_quatree : 1;
+    bool show_clock : 1;
+    bool show_planes : 1;
+    bool show_pbb : 1;
+    bool show_atc : 1;
+    bool show_atc_area : 1;
+} states_t;
+
 typedef struct instance_s {
     sfRenderWindow *window;
     plane_array_t *a_planes;
     atc_array_t *a_atc;
-    sfImage *i_plane;
-    sfImage *i_atc;
-    sfImage *i_map;
+    sfTexture *t_plane;
+    sfTexture *t_atc;
     sfTexture *t_map;
     sfSprite *s_map;
     quadtree_t *quadtree;
+    sfText *clock;
+    sfClock *clock_time;
+    sfFont *font;
+    states_t states;
 } instance_t;
 
 #endif //OBJECTS_

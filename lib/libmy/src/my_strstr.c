@@ -8,7 +8,7 @@
 #include <stddef.h>
 #include "my.h"
 
-static int my_checkocc(char *hs, char const *nd, int i)
+static int my_checkocc(char const *hs, char const *nd, int i)
 {
     for (int p = 0; hs[i + p] == nd[p] || nd[p] == '\0';
             p++) {
