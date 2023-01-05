@@ -27,6 +27,7 @@ void help(void)
         "\t L toggle atc circle and plane box visibility\n"
         "\t T toggle quadtree visibility\n"
         "\t Y toggle clock visibility\n"
+        "\t Q to quit\n"
         "\nDESCRIPTION:\n"
         "\tfile\tfile describing the atc, planes and settings\n");
 }

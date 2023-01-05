@@ -47,6 +47,7 @@ void clock_displayer(instance_t *instance)
         sfText_setCharacterSize(instance->clock, 24);
         sfText_setColor(instance->clock, sfWhite);
         sfText_setStyle(instance->clock, sfTextRegular);
+        sfText_setPosition(instance->clock, (sfVector2f) {1700, 10});
     }
     char *text = itoa(sfTime_asSeconds(sfClock_getElapsedTime
         (instance->clock_time)));
